@@ -1,33 +1,27 @@
 package com.starkindustries;
-import java.io.PrintWriter;
 
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
-public class AddServelet extends HttpServlet
-{
+@WebServlet("/MainServlet")
+public class MainServlet extends HttpServlet {
 	public void service(HttpServletRequest request,HttpServletResponse response)
 	{
 		try
 		{
 		int i=Integer.parseInt(request.getParameter("num1"));
 		int j=Integer.parseInt(request.getParameter("num2"));
-		int k =Integer.parseInt(request.getParameter("num3"));
-//		request.setAttribute("k", k);
-		HttpSession session=request.getSession();
-		session.setAttribute("k",k);
-//		PrintWriter writter = response.getWriter();
-//		writter.println(i+j);
-		RequestDispatcher dispatch = request.getRequestDispatcher("square");
-		dispatch.forward(request, response);
-		
+		request.setAttribute("i",i);
+		request.setAttribute("j", j);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("SecondServlet");
+		dispatcher.forward(request, response);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
+
 }
